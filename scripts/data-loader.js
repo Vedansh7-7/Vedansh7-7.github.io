@@ -287,43 +287,45 @@ async function renderNow() {
     const now =
         await loadJSON('./data/now.json');
 
-    if (!now) return;
+    if (!now || !Array.isArray(now)) return;
 
 
-    const blocks =
-        document.querySelectorAll('.now-block');
+    const grid =
+        document.querySelector('.now-grid');
+
+    if (!grid) return;
 
 
-    const keys = [
-        'reading',
-        'building',
-        'listening',
-        'learning'
-    ];
+    grid.innerHTML = '';
 
 
-    blocks.forEach((block, index) => {
+    now.forEach(item => {
 
-        const key = keys[index];
+        const block =
+            document.createElement('div');
 
-        const item = now[key];
-
-        if (!item) return;
+        block.className = 'now-block';
 
 
-        const paragraph =
-            block.querySelector('p');
+        block.innerHTML = `
 
-        if (paragraph) {
+            <div class="now-block-title">
+                ${item.type}
+            </div>
 
-            paragraph.innerHTML = `
+            <p>
                 ${item.title}
                 <span>— ${item.details}</span>
-            `;
-        }
-    });
-}
+            </p>
 
+        `;
+
+
+        grid.appendChild(block);
+
+    });
+
+}
 
 
 // ─────────────────────────────────────────────

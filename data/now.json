@@ -1,18 +1,31 @@
-{
-  "reading": {
+[
+  {
+    "type": "Reading",
     "title": "Thinking in Systems",
     "details": "Donella Meadows"
   },
-  "building": {
+
+  {
+    "type": "Building",
     "title": "Anveshan Rover",
     "details": "IRoC-U 2026 ASCEND"
   },
-  "listening": {
+
+  {
+    "type": "Building",
+    "title": "CareerAI",
+    "details": "LLM counseling system"
+  },
+
+  {
+    "type": "Listening",
     "title": "Galactic H-line at 1420.4 MHz",
     "details": "from my backyard"
   },
-  "learning": {
-    "title": "dbt + streaming architectures",
-    "details": "for Tredence Analytics"
+
+  {
+    "type": "Learning",
+    "title": "AI, LLM & AGI",
+    "details": "preparing to be ready"
   }
-}
+]

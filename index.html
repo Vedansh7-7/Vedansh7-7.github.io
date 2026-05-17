@@ -1,345 +1,405 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+/>
+
 <title>Vedansh Shrivastava</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Editorial+New:ital@0;1&family=Neue+Montreal:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./styles/main.css">
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Editorial+New:ital@0;1&family=Neue+Montreal:wght@300;400;500&family=Space+Mono&display=swap"
+    rel="stylesheet"
+/>
+
+<link
+    rel="stylesheet"
+    href="./styles/main.css"
+/>
+
 </head>
+
 <body>
 
-<!-- Custom cursor -->
+
+<!-- ─────────────────────────────────────────
+     CUSTOM CURSOR
+───────────────────────────────────────── -->
 <div id="cursor">
-  <div class="cursor-dot"></div>
-  <div class="cursor-ring"></div>
+
+    <div class="cursor-dot"></div>
+
+    <div class="cursor-ring"></div>
+
 </div>
 
-<!-- Background canvas -->
+
+
+<!-- ─────────────────────────────────────────
+     BACKGROUND CANVAS
+───────────────────────────────────────── -->
 <canvas id="bg-canvas"></canvas>
 
-<!-- Nav -->
+
+
+<!-- ─────────────────────────────────────────
+     NAVIGATION
+───────────────────────────────────────── -->
 <nav>
-  <a class="nav-id" href="#">VB</a>
-  <ul class="nav-right">
-    <li><a href="#" data-goto="1">About</a></li>
-    <li><a href="#" data-goto="2">Work</a></li>
-    <li><a href="#" data-goto="4">Blog</a></li>
-    <li><a href="#" data-goto="5">Contact</a></li>
-  </ul>
+
+    <a class="nav-id" href="#">
+        VB
+    </a>
+
+    <ul class="nav-right">
+
+        <li>
+            <a href="#" data-goto="1">
+                About
+            </a>
+        </li>
+
+        <li>
+            <a href="#" data-goto="2">
+                Work
+            </a>
+        </li>
+
+        <li>
+            <a href="#" data-goto="4">
+                Blog
+            </a>
+        </li>
+
+        <li>
+            <a href="#" data-goto="5">
+                Contact
+            </a>
+        </li>
+
+    </ul>
+
 </nav>
 
-<!-- Progress dots -->
+
+
+<!-- ─────────────────────────────────────────
+     PROGRESS DOTS
+───────────────────────────────────────── -->
 <div id="progress">
-  <div class="prog-dot active" data-i="0"></div>
-  <div class="prog-dot" data-i="1"></div>
-  <div class="prog-dot" data-i="2"></div>
-  <div class="prog-dot" data-i="3"></div>
-  <div class="prog-dot" data-i="4"></div>
-  <div class="prog-dot" data-i="5"></div>
+
+    <div
+        class="prog-dot active"
+        data-i="0"
+    ></div>
+
+    <div
+        class="prog-dot"
+        data-i="1"
+    ></div>
+
+    <div
+        class="prog-dot"
+        data-i="2"
+    ></div>
+
+    <div
+        class="prog-dot"
+        data-i="3"
+    ></div>
+
+    <div
+        class="prog-dot"
+        data-i="4"
+    ></div>
+
+    <div
+        class="prog-dot"
+        data-i="5"
+    ></div>
+
 </div>
 
-<!-- Page counter -->
-<div id="page-counter">01 / 06</div>
 
-<!-- Panels -->
+
+<!-- ─────────────────────────────────────────
+     PAGE COUNTER
+───────────────────────────────────────── -->
+<div id="page-counter">
+    01 / 06
+</div>
+
+
+
+<!-- ─────────────────────────────────────────
+     SCROLL CONTAINER
+───────────────────────────────────────── -->
 <div id="scroll-container">
 
-  <!-- 0: HERO -->
-  <div class="panel active" id="p-hero">
-    <p class="hero-eyebrow"></p>
-    <h1 class="hero-name"></h1>
-    <div class="hero-bottom">
-      <p class="hero-role"></p>
-      <div class="hero-scroll-hint"><span class="scroll-arrow"></span>Scroll</div>
-    </div>
-  </div>
 
-  <!-- 1: ABOUT -->
-  <div class="panel hidden" id="p-about">
-    <p class="about-num">// 01</p>
-    <p class="about-statement">
-      I build <em>data systems</em> that scale — and point antennas at the sky when no one's watching. Third-year ME student at IIT Indore, shaping a career at the edge of engineering and data science.
-    </p>
-    <div class="about-tags">
-      <span class="about-tag">ETL Pipelines</span>
-      <span class="about-tag">ML Systems</span>
-      <span class="about-tag">Satellite Data</span>
-      <span class="about-tag">Radio Astronomy</span>
-      <span class="about-tag">Rapid Prototyping</span>
-    </div>
-  </div>
+    <!-- ─────────────────────────────────────
+         HERO
+    ───────────────────────────────────── -->
+    <div
+        class="panel active"
+        id="p-hero"
+    >
 
-  <!-- 2: WORK -->
-  <div class="panel hidden" id="p-work">
-    <p class="work-label">// 02 · Selected Work</p>
-    <div class="work-list">
-      <div class="work-item">
-        <span class="wi-num">01</span>
-        <span class="wi-title">Chandrayaan-2 Lunar Mapping</span>
-        <span class="wi-meta">ISRO · VSSC<br>XRF · FITS · Python</span>
-      </div>
-      <div class="work-item">
-        <span class="wi-num">02</span>
-        <span class="wi-title">Uber Eats Analytics Pipeline</span>
-        <span class="wi-meta">Data Engineering<br>PySpark · Medallion · SQL</span>
-      </div>
-      <div class="work-item">
-        <span class="wi-num">03</span>
-        <span class="wi-title">CareerAI — RAG Counseling System</span>
-        <span class="wi-meta">AI/ML<br>FAISS · Qwen2.5 · FastAPI</span>
-      </div>
-      <div class="work-item">
-        <span class="wi-num">04</span>
-        <span class="wi-title">21cm H-Line Radio Telescope</span>
-        <span class="wi-meta">Hardware · RF<br>RTL-SDR · GNU Radio</span>
-      </div>
-      <div class="work-item">
-        <span class="wi-num">05</span>
-        <span class="wi-title">Drone Telemetry Pipeline</span>
-        <span class="wi-meta">Robotics · Drishti CPS<br>Streaming · MAVLink</span>
-      </div>
-    </div>
-  </div>
+        <p class="hero-eyebrow"></p>
 
-  <!-- 3: NOW -->
-  <div class="panel hidden" id="p-now">
-    <p class="now-label">// 03 · Currently</p>
-    <div class="now-grid">
-      <div class="now-block">
-        <div class="now-block-title">Reading</div>
-        <p>Thinking in Systems <span>— Donella Meadows</span></p>
-      </div>
-      <div class="now-block">
-        <div class="now-block-title">Building</div>
-        <p>Anveshan Rover <span>— IRoC-U 2026 ASCEND</span></p>
-      </div>
-      <div class="now-block">
-        <div class="now-block-title">Listening</div>
-        <p>Galactic H-line at 1420.4 MHz <span>— from my backyard</span></p>
-      </div>
-      <div class="now-block">
-        <div class="now-block-title">Learning</div>
-        <p>dbt + streaming architectures <span>— for Tredence Analytics</span></p>
-      </div>
-    </div>
-    <div class="now-status">
-      <span class="status-pill status-open">Open to Internships</span>
-      <span class="status-pill status-iit">IIT Indore · 3rd Year</span>
-    </div>
-  </div>
+        <h1 class="hero-name"></h1>
 
-  <!-- 4: BLOG -->
-  <div class="panel hidden" id="p-blog">
-    <p class="blog-label">// 04 · Writing</p>
-    <div class="blog-featured">
-      <div class="bf-tag">Latest Essay</div>
-      <h2 class="bf-title">Building a 21cm Hydrogen Line Telescope From Scratch</h2>
-    </div>
-    <div class="blog-grid">
-      <div class="blog-small">
-        <div class="bs-date">Data Engineering · Coming Soon</div>
-        <p class="bs-title">Medallion Architecture: When and Why It Works</p>
-      </div>
-      <div class="blog-small">
-        <div class="bs-date">Space Science · Coming Soon</div>
-        <p class="bs-title">Parsing the Moon: XRF Spectroscopy with Chandrayaan-2</p>
-      </div>
-      <div class="blog-small">
-        <div class="bs-date">Hardware · Coming Soon</div>
-        <p class="bs-title">Reverse-Engineering a Battery Charger Over USB HID</p>
-      </div>
-    </div>
-  </div>
+        <div class="hero-bottom">
 
-  <!-- 5: CONTACT -->
-  <div class="panel hidden" id="p-contact">
-    <p class="contact-eyebrow">Let's build something</p>
-    <h2 class="contact-big">Say<br><em>Hello.</em></h2>
-    <div class="contact-bottom">
-      <div class="contact-links">
-        <a href="mailto:vedant@example.com">Email</a>
-        <a href="#">GitHub</a>
-        <a href="#">LinkedIn</a>
-        <a href="#">Resume</a>
-      </div>
-      <p class="contact-copy">© 2025 Vedant Bhardwaj</p>
+            <p class="hero-role"></p>
+
+            <div class="hero-scroll-hint">
+
+                <span class="scroll-arrow"></span>
+
+                Scroll
+
+            </div>
+
+        </div>
+
     </div>
-  </div>
+
+
+
+    <!-- ─────────────────────────────────────
+         ABOUT
+    ───────────────────────────────────── -->
+    <div
+        class="panel hidden"
+        id="p-about"
+    >
+
+        <p class="about-num">
+            // 01
+        </p>
+
+        <p class="about-statement"></p>
+
+        <div class="about-tags"></div>
+
+    </div>
+
+
+
+    <!-- ─────────────────────────────────────
+         WORK
+    ───────────────────────────────────── -->
+    <div
+        class="panel hidden"
+        id="p-work"
+    >
+
+        <p class="work-label">
+            // 02 · Selected Work
+        </p>
+
+        <div class="work-list"></div>
+
+    </div>
+
+
+
+    <!-- ─────────────────────────────────────
+         CURRENTLY
+    ───────────────────────────────────── -->
+    <div
+        class="panel hidden"
+        id="p-now"
+    >
+
+        <p class="now-label">
+            // 03 · Currently
+        </p>
+
+
+        <div class="now-grid">
+
+
+            <div class="now-block">
+
+                <div class="now-block-title">
+                    Reading
+                </div>
+
+                <p></p>
+
+            </div>
+
+
+
+            <div class="now-block">
+
+                <div class="now-block-title">
+                    Building
+                </div>
+
+                <p></p>
+
+            </div>
+
+
+
+            <div class="now-block">
+
+                <div class="now-block-title">
+                    Listening
+                </div>
+
+                <p></p>
+
+            </div>
+
+
+
+            <div class="now-block">
+
+                <div class="now-block-title">
+                    Learning
+                </div>
+
+                <p></p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="now-status">
+
+            <span class="status-pill status-open">
+                Open to Internships
+            </span>
+
+            <span class="status-pill status-iit">
+                IIT Indore · 3rd Year
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ─────────────────────────────────────
+         BLOG
+    ───────────────────────────────────── -->
+    <div
+        class="panel hidden"
+        id="p-blog"
+    >
+
+        <p class="blog-label">
+            // 04 · Writing
+        </p>
+
+
+        <div class="blog-featured">
+
+            <div class="bf-tag"></div>
+
+            <h2 class="bf-title"></h2>
+
+        </div>
+
+
+        <div class="blog-grid"></div>
+
+    </div>
+
+
+
+    <!-- ─────────────────────────────────────
+         CONTACT
+    ───────────────────────────────────── -->
+    <div
+        class="panel hidden"
+        id="p-contact"
+    >
+
+        <p class="contact-eyebrow">
+            Let's build something
+        </p>
+
+
+        <h2 class="contact-big">
+
+            Say<br>
+
+            <em>Hello.</em>
+
+        </h2>
+
+
+
+        <div class="contact-bottom">
+
+            <div class="contact-links">
+
+                <a href="#">
+                    Email
+                </a>
+
+                <a href="#">
+                    GitHub
+                </a>
+
+                <a href="#">
+                    LinkedIn
+                </a>
+
+                <a href="#">
+                    Resume
+                </a>
+
+            </div>
+
+
+            <p class="contact-copy">
+                © 2026 Vedansh Shrivastava
+            </p>
+
+        </div>
+
+    </div>
+
 
 </div>
 
+
+
+<!-- ─────────────────────────────────────────
+     THREE.JS
+───────────────────────────────────────── -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script>
-// ── THREE.JS BACKGROUND ──
-// const canvas = document.getElementById('bg-canvas');
-// const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
-// renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-// renderer.setSize(window.innerWidth, window.innerHeight);
-// renderer.setClearColor(0x0a0a0a, 1);
 
-// const scene = new THREE.Scene();
-// const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 100);
-// camera.position.z = 6;
 
-// // Floating grain-like points
-// const geo = new THREE.BufferGeometry();
-// const N = 1200;
-// const pos = new Float32Array(N*3);
-// const sizes = new Float32Array(N);
-// for(let i=0;i<N;i++){
-//   pos[i*3]=(Math.random()-.5)*18;
-//   pos[i*3+1]=(Math.random()-.5)*12;
-//   pos[i*3+2]=(Math.random()-.5)*10;
-//   sizes[i]=Math.random()*.8+.1;
-// }
-// geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
-// const mat = new THREE.PointsMaterial({size:.025,color:0x333333,transparent:true,opacity:.9});
-// const pts = new THREE.Points(geo,mat);
-// scene.add(pts);
 
-// // Thin grid plane
-// const gridHelper = new THREE.GridHelper(24,24,0x1a1a1a,0x111111);
-// gridHelper.position.y = -3;
-// gridHelper.material.transparent = true;
-// gridHelper.material.opacity = 0.4;
-// scene.add(gridHelper);
-
-// // Ambient glow sphere (invisible, just for lighting feel)
-// const ambLight = new THREE.AmbientLight(0xffffff,.1);
-// scene.add(ambLight);
-
-// let mx=0,my=0,tgt_mx=0,tgt_my=0;
-// let animT=0;
-
-// function animate(){
-//   requestAnimationFrame(animate);
-//   animT+=0.0005;
-//   mx += (tgt_mx - mx)*.04;
-//   my += (tgt_my - my)*.04;
-//   pts.rotation.y = animT*.15 + mx*.05;
-//   pts.rotation.x = my*.03;
-//   gridHelper.position.y = -3 + Math.sin(animT*2)*.05;
-//   camera.position.x += (mx*.4 - camera.position.x)*.03;
-//   camera.position.y += (-my*.2 - camera.position.y)*.03;
-//   camera.lookAt(scene.position);
-//   renderer.render(scene,camera);
-// }
-// animate();
-
-// window.addEventListener('resize',()=>{
-//   camera.aspect=window.innerWidth/window.innerHeight;
-//   camera.updateProjectionMatrix();
-//   renderer.setSize(window.innerWidth,window.innerHeight);
-// });
-
-// ── CUSTOM CURSOR ──
-// const cursorDot = document.querySelector('.cursor-dot');
-// const cursorRing = document.querySelector('.cursor-ring');
-// let cx=0,cy=0,rx=0,ry=0;
-
-// document.addEventListener('mousemove',e=>{
-//   cx=e.clientX; cy=e.clientY;
-//   tgt_mx=(e.clientX/window.innerWidth-.5)*2;
-//   tgt_my=(e.clientY/window.innerHeight-.5)*2;
-// });
-
-// (function tickCursor(){
-//   requestAnimationFrame(tickCursor);
-//   rx+=(cx-rx)*.12;
-//   ry+=(cy-ry)*.12;
-//   cursorDot.style.left=cx+'px';
-//   cursorDot.style.top=cy+'px';
-//   cursorRing.style.left=rx+'px';
-//   cursorRing.style.top=ry+'px';
-// })();
-
-// document.querySelectorAll('a,button,.work-item,.bf-title,.blog-small').forEach(el=>{
-//   el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
-//   el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
-// });
-
-// ── SCROLL / PANEL SYSTEM ──
-// const panels = document.querySelectorAll('.panel');
-// const dots = document.querySelectorAll('.prog-dot');
-// const counter = document.getElementById('page-counter');
-// let current = 0;
-// let isTransitioning = false;
-
-// function goTo(idx){
-//   if(isTransitioning || idx===current || idx<0 || idx>=panels.length) return;
-//   isTransitioning = true;
-
-//   const prev = panels[current];
-//   const next = panels[idx];
-//   const dir = idx > current ? 1 : -1;
-
-//   // Slide out prev
-//   prev.style.transform = `translateY(${-dir*100}vh)`;
-//   prev.style.opacity = '0';
-//   setTimeout(()=>{prev.classList.add('hidden'); prev.classList.remove('active'); prev.style.transform='';}, 900);
-
-//   // Slide in next
-//   next.style.transform = `translateY(${dir*60}vh)`;
-//   next.style.opacity = '0';
-//   next.classList.remove('hidden');
-//   next.classList.add('active');
-//   requestAnimationFrame(()=>{
-//     requestAnimationFrame(()=>{
-//       next.style.transition='transform 1s cubic-bezier(0.76,0,0.24,1),opacity .8s';
-//       next.style.transform='translateY(0)';
-//       next.style.opacity='1';
-//     });
-//   });
-
-//   current = idx;
-//   dots.forEach((d,i)=>d.classList.toggle('active',i===current));
-//   counter.textContent = String(current+1).padStart(2,'0')+' / '+String(panels.length).padStart(2,'0');
-
-//   setTimeout(()=>{isTransitioning=false;next.style.transition='';next.style.transform='';next.style.opacity='';},1000);
-// }
-
-// // Wheel
-// let wheelAcc = 0;
-// let wheelTimer;
-// window.addEventListener('wheel',e=>{
-//   e.preventDefault();
-//   wheelAcc += e.deltaY;
-//   clearTimeout(wheelTimer);
-//   wheelTimer = setTimeout(()=>{
-//     if(Math.abs(wheelAcc)>30){
-//       goTo(current + (wheelAcc>0?1:-1));
-//     }
-//     wheelAcc=0;
-//   },50);
-// },{passive:false});
-
-// Keys
-// window.addEventListener('keydown',e=>{
-//   if(e.key==='ArrowDown'||e.key==='PageDown') goTo(current+1);
-//   if(e.key==='ArrowUp'||e.key==='PageUp') goTo(current-1);
-// });
-
-// Dots
-dots.forEach(d=>d.addEventListener('click',()=>goTo(+d.dataset.i)));
-
-// Nav links
-document.querySelectorAll('[data-goto]').forEach(a=>{
-  a.addEventListener('click',e=>{e.preventDefault();goTo(+a.dataset.goto);});
-});
-
-// Touch
-// let touchY=0;
-// window.addEventListener('touchstart',e=>{touchY=e.touches[0].clientY;},{passive:true});
-// window.addEventListener('touchend',e=>{
-//   const dy = touchY - e.changedTouches[0].clientY;
-//   if(Math.abs(dy)>40) goTo(current+(dy>0?1:-1));
-// });
-</script>
+<!-- ─────────────────────────────────────────
+     SCRIPTS
+───────────────────────────────────────── -->
 <script src="./scripts/background.js"></script>
+
 <script src="./scripts/cursor.js"></script>
+
 <script src="./scripts/navigation.js"></script>
+
 <script src="./scripts/data-loader.js"></script>
+
+
 </body>
 </html>
