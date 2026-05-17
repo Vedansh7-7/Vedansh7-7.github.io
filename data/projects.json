@@ -1,0 +1,16 @@
+[
+  {
+    "number": "01",
+    "title": "Chandrayaan-2 Lunar Mapping",
+    "metaTop": "ISRO · VSSC",
+    "metaBottom": "XRF · FITS · Python",
+    "description": "Lunar mapping using CLASS payload."
+  },
+  {
+    "number": "02",
+    "title": "Uber Eats Analytics Pipeline",
+    "metaTop": "Data Engineering",
+    "metaBottom": "PySpark · Medallion · SQL",
+    "description": "Analytics lakehouse pipelines."
+  }
+]

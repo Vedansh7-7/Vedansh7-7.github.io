@@ -1,0 +1,15 @@
+[
+  {
+    "featured": true,
+    "tag": "Latest Essay",
+    "title": "Building a 21cm Hydrogen Line Telescope From Scratch"
+  },
+  {
+    "date": "Data Engineering · Coming Soon",
+    "title": "Medallion Architecture: When and Why It Works"
+  },
+  {
+    "date": "Space Science · Coming Soon",
+    "title": "Parsing the Moon: XRF Spectroscopy with Chandrayaan-2"
+  }
+]

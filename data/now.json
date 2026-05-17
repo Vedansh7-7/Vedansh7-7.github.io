@@ -1,0 +1,18 @@
+{
+  "reading": {
+    "title": "Thinking in Systems",
+    "details": "Donella Meadows"
+  },
+  "building": {
+    "title": "Anveshan Rover",
+    "details": "IRoC-U 2026 ASCEND"
+  },
+  "listening": {
+    "title": "Galactic H-line at 1420.4 MHz",
+    "details": "from my backyard"
+  },
+  "learning": {
+    "title": "dbt + streaming architectures",
+    "details": "for Tredence Analytics"
+  }
+}
