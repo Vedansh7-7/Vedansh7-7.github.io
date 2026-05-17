@@ -3,493 +3,422 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aether • AI & Robotics</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <title>Portfolio | Spatial Experience</title>
+    <!-- Tailwind CSS for sleek Layouts -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- FontAwesome for clean Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
-        
-        :root {
-            --primary: #00f5ff;
-        }
-        
         body {
-            font-family: 'Inter', system-ui, sans-serif;
+            font-family: 'Inter', sans-serif;
+            background-color: #030712;
+            overflow-x: hidden;
         }
-        
-        .heading {
+        h1, h2, h3, .font-display {
             font-family: 'Space Grotesk', sans-serif;
         }
-
-        .hero-bg {
+        /* Custom scrollbar to match the premium theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+        }
+        /* Glassmorphism utility */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        #canvas-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            z-index: -1;
+            height: 100vh;
+            z-index: 0;
             pointer-events: none;
         }
-
-        .glass {
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(16px);
-        }
-
-        .neon-text {
-            text-shadow: 0 0 10px #00f5ff,
-                        0 0 20px #00f5ff;
-        }
-
-        .section {
-            scroll-margin-top: 80px;
-        }
-
-        .card-tilt {
-            transition: transform 0.1s ease;
+        .interactive-section {
+            position: relative;
+            z-index: 10;
         }
     </style>
 </head>
-<body class="bg-zinc-950 text-zinc-200 overflow-x-hidden">
-    <!-- 3D Background -->
-    <canvas id="hero-canvas" class="hero-bg"></canvas>
+<body>
 
-    <!-- Navbar -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center text-xl font-bold">A</div>
-                <span class="heading text-2xl tracking-tighter font-semibold">AETHER</span>
-            </div>
-            
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-                <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
-                <a href="#projects" class="hover:text-cyan-400 transition-colors">Projects</a>
-                <a href="#blogs" class="hover:text-cyan-400 transition-colors">Insights</a>
-                <a href="#contact" class="hover:text-cyan-400 transition-colors">Connect</a>
-            </div>
-            
-            <a href="#" onclick="downloadResume()" 
-               class="px-6 py-2.5 bg-white text-zinc-900 rounded-2xl font-semibold text-sm hover:bg-cyan-400 hover:text-white transition-all flex items-center gap-2">
-                <i class="fas fa-download"></i>
-                Resume
-            </a>
+    <!-- 3D Background Canvas -->
+    <div id="canvas-container"></div>
+
+    <!-- Navigation Header -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-card border-b border-white/5 px-6 py-4 flex justify-between items-center">
+        <div class="text-xl font-bold font-display tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400" id="nav-brand">ALIAS</div>
+        <div class="flex gap-6 text-sm text-gray-400">
+            <a href="#bio" class="hover:text-blue-400 transition-colors">Bio</a>
+            <a href="#projects" class="hover:text-blue-400 transition-colors">Projects</a>
+            <a href="#blogs" class="hover:text-blue-400 transition-colors">Insights</a>
+            <a href="#contact" class="hover:text-blue-400 transition-colors">Connect</a>
         </div>
     </nav>
 
-    <!-- Hero -->
-    <section class="min-h-screen flex items-center relative pt-20">
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-            <div class="space-y-8">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-3xl border border-white/20 text-sm">
-                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                    Aspiring AI Engineer & Robotics Hobbyist
-                </div>
+    <!-- Main Container for Scroll Snap/Smooth Interaction -->
+    <main class="relative z-10 w-full text-gray-200">
+
+        <!-- 1. HERO & ANIMATED BIO SECTION -->
+        <section id="bio" class="min-h-screen flex flex-col justify-center px-6 max-w-5xl mx-auto pt-20">
+            <div class="glass-card p-8 md:p-12 rounded-3xl max-w-3xl transform translate-y-0 transition-all duration-1000 shadow-2xl relative overflow-hidden group">
+                <div class="absolute -right-10 -top-10 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl group-hover:bg-indigo-500/20 transition-all"></div>
                 
-                <h1 class="heading text-7xl md:text-8xl font-semibold tracking-tighter leading-none neon-text">
-                    HI, I'M<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400">ALIAS</span>
-                </h1>
-                
-                <p class="text-2xl text-zinc-400 max-w-lg">
-                    Building intelligent systems that help humanity. 
-                    Passionate about AI, Data Science, Robotics & Drones.
+                <span class="text-xs uppercase font-display tracking-widest text-indigo-400 font-semibold px-3 py-1 bg-indigo-500/10 rounded-full inline-block mb-4" id="hero-role">AI Engineer & Robotics Enthusiast</span>
+                <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white mb-4" id="hero-name">Hello, I'm Alias</h1>
+                <p class="text-lg md:text-xl text-gray-400 leading-relaxed mb-6" id="hero-tagline">
+                    Designing intelligent systems at the intersection of machine learning, aerial robotics, and human-centric engineering. Dedicated to crafting software that solves real-world challenges with kindness.
                 </p>
-                
-                <div class="flex items-center gap-4">
-                    <a href="#contact" 
-                       class="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-black rounded-3xl font-semibold text-lg transition-all inline-flex items-center gap-3">
-                        Let's Collaborate
-                        <i class="fas fa-arrow-right"></i>
+                <div class="flex gap-4">
+                    <a href="#projects" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-medium px-6 py-3 rounded-xl transition-all shadow-lg shadow-indigo-600/20 flex items-center gap-2">
+                        Explore My Work <i class="fa-solid fa-arrow-down text-xs"></i>
                     </a>
-                    
-                    <a href="#projects" 
-                       class="px-8 py-4 border border-white/30 hover:border-white/70 rounded-3xl font-medium transition-all">
-                        View Work
+                    <a href="#contact" class="bg-white/5 hover:bg-white/10 text-white font-medium px-6 py-3 rounded-xl border border-white/10 transition-all flex items-center gap-2">
+                        Get In Touch
                     </a>
                 </div>
-                
-                <div class="flex gap-8 text-sm">
-                    <div>
-                        <div class="text-cyan-400 font-mono">15+</div>
-                        <div class="text-zinc-500">Projects</div>
-                    </div>
-                    <div>
-                        <div class="text-cyan-400 font-mono">∞</div>
-                        <div class="text-zinc-500">Learning</div>
-                    </div>
+            </div>
+        </section>
+
+        <!-- 2. PROJECTS SECTION (GRID WITH PARALLAX/TILT EFFECTS) -->
+        <section id="projects" class="min-h-screen py-24 px-6 max-w-6xl mx-auto">
+            <div class="mb-12">
+                <h2 class="text-3xl md:text-5xl font-bold text-white font-display">Crafted Works</h2>
+                <p class="text-gray-400 mt-2">A timeline of system deployments, ongoing experiments, and active development pipelines.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="projects-grid">
+                <!-- Injected via JavaScript Config -->
+            </div>
+        </section>
+
+        <!-- 3. BLOGS SECTION (DYNAMIC COMPONENT VIA JSON) -->
+        <section id="blogs" class="min-h-screen py-24 px-6 max-w-6xl mx-auto">
+            <div class="mb-12 flex justify-between items-end">
+                <div>
+                    <h2 class="text-3xl md:text-5xl font-bold text-white font-display">Technical Journal</h2>
+                    <p class="text-gray-400 mt-2">Insights on AI architectures, embedded hardware, and algorithmic designs.</p>
                 </div>
             </div>
             
-            <!-- Floating 3D Object Indicator -->
-            <div class="hidden md:flex justify-center">
-                <div id="hero-model" class="w-80 h-80 relative">
-                    <div class="absolute inset-0 flex items-center justify-center text-[180px] opacity-10">🤖</div>
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="blogs-grid">
+                <!-- Injected dynamically from blogs.json or local configuration fallback -->
             </div>
-        </div>
-        
-        <div class="absolute bottom-10 left-1/2 flex flex-col items-center gap-2 text-xs tracking-widest">
-            <div>SCROLL TO EXPLORE</div>
-            <div class="w-px h-12 bg-gradient-to-b from-transparent via-cyan-400 to-transparent"></div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About / Animated Bio -->
-    <section id="about" class="section py-24 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-12 gap-16">
-                <div class="md:col-span-5">
-                    <div class="sticky top-28">
-                        <h2 class="heading text-6xl font-semibold tracking-tight mb-6">My Journey</h2>
-                        <div class="text-zinc-400 leading-relaxed text-lg">
-                            I'm an aspiring AI Engineer and Data Scientist with a deep passion for robotics and drone technology. 
-                            I believe in using intelligence — both artificial and human — to create positive impact and help others advance.
-                        </div>
-                        
-                        <div class="mt-12 space-y-6">
-                            <div class="flex gap-4">
-                                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-2xl">🧠</div>
-                                <div>
-                                    <div class="font-semibold">AI &amp; Machine Learning</div>
-                                    <div class="text-sm text-zinc-500">Deep Learning • LLMs • Computer Vision</div>
-                                </div>
-                            </div>
-                            <div class="flex gap-4">
-                                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-cyan-500 flex items-center justify-center text-2xl">🤖</div>
-                                <div>
-                                    <div class="font-semibold">Robotics &amp; Drones</div>
-                                    <div class="text-sm text-zinc-500">ROS • Embedded Systems • Autonomous Navigation</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- 4. CONTACT & RESUME DOWNLOAD SECTION -->
+        <section id="contact" class="min-h-screen py-24 px-6 max-w-4xl mx-auto flex flex-col justify-center">
+            <div class="glass-card p-8 md:p-12 rounded-3xl border border-white/10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center relative">
                 
-                <div class="md:col-span-7">
-                    <div class="prose prose-invert max-w-none text-lg leading-relaxed text-zinc-300">
-                        <p class="mb-6">
-                            My path began with curiosity about how machines could perceive and interact with the world. 
-                            Today, I work on projects that blend cutting-edge AI with physical hardware — from intelligent drone systems 
-                            to data-driven decision engines.
-                        </p>
-                        <p>
-                            Beyond technology, I'm committed to being a kind mentor and collaborator. I love sharing knowledge, 
-                            open-sourcing my experiments, and helping fellow enthusiasts and students on their journeys.
-                        </p>
-                    </div>
+                <div>
+                    <h2 class="text-3xl font-bold text-white font-display mb-4">Let's Connect</h2>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        Whether you want to collaborate on autonomous architectures, discuss deep learning pipelines, or just share thoughts on technology, feel free to drop a line.
+                    </p>
                     
-                    <!-- Skills -->
-                    <div class="mt-16">
-                        <h3 class="uppercase tracking-widest text-xs mb-6 text-zinc-500">Core Skills</h3>
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                            <div class="glass border border-white/10 rounded-3xl p-6 hover:border-cyan-400/30 transition-colors">Python</div>
-                            <div class="glass border border-white/10 rounded-3xl p-6 hover:border-cyan-400/30 transition-colors">TensorFlow / PyTorch</div>
-                            <div class="glass border border-white/10 rounded-3xl p-6 hover:border-cyan-400/30 transition-colors">ROS2</div>
-                            <div class="glass border border-white/10 rounded-3xl p-6 hover:border-cyan-400/30 transition-colors">Computer Vision</div>
-                            <div class="glass border border-white/10 rounded-3xl p-6 hover:border-cyan-400/30 transition-colors">Drone Hardware</div>
-                            <div class="glass border border-white/10 rounded-3xl p-6 hover:border-cyan-400/30 transition-colors">Data Engineering</div>
-                        </div>
+                    <div class="flex flex-col gap-4 mb-6" id="social-links-container">
+                        <!-- Populated by config -->
                     </div>
+
+                    <!-- Resume Download Link -->
+                    <a id="resume-btn" href="resume.pdf" download class="inline-flex items-center gap-3 text-sm bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all px-5 py-3 rounded-xl font-medium">
+                        <i class="fa-solid fa-file-arrow-down text-base"></i> Download Professional Resume
+                    </a>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Projects -->
-    <section id="projects" class="section py-24 bg-black/50">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex justify-between items-end mb-12">
-                <h2 class="heading text-6xl font-semibold tracking-tight">Featured Projects</h2>
-                <a href="#" class="text-cyan-400 flex items-center gap-2 hover:gap-3 transition-all">
-                    View all on GitHub <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-container">
-                <!-- Populated by JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Blogs -->
-    <section id="blogs" class="section py-24">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="heading text-6xl font-semibold tracking-tight mb-12">Latest Insights</h2>
-            
-            <div class="grid md:grid-cols-2 gap-8" id="blogs-container">
-                <!-- Populated by JS -->
-            </div>
-            
-            <div class="text-center mt-12">
-                <p class="text-sm text-zinc-500">Add new blogs by editing <code class="bg-zinc-900 px-2 py-1 rounded">data/blogs.json</code></p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="section py-24 border-t border-white/10 bg-gradient-to-b from-transparent via-zinc-900 to-black">
-        <div class="max-w-4xl mx-auto px-6">
-            <h2 class="heading text-6xl font-semibold tracking-tight text-center mb-6">Let's Build the Future Together</h2>
-            <p class="text-center text-zinc-400 max-w-md mx-auto mb-16">
-                Whether you want to collaborate on a project, discuss AI ethics, or just chat about drones — I'm always happy to connect.
-            </p>
-            
-            <div class="grid md:grid-cols-2 gap-12">
-                <!-- Email Form -->
-                <div class="glass border border-white/10 rounded-3xl p-8">
-                    <h3 class="text-xl font-semibold mb-6">Send a Message</h3>
-                    <form id="contact-form" class="space-y-6">
-                        <input type="text" id="name" placeholder="Your Name" 
-                               class="w-full bg-zinc-900 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-cyan-400">
-                        <input type="email" id="email" placeholder="your@email.com" 
-                               class="w-full bg-zinc-900 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-cyan-400">
-                        <textarea id="message" rows="5" placeholder="Your message..." 
-                                  class="w-full bg-zinc-900 border border-white/10 rounded-3xl px-6 py-4 focus:outline-none focus:border-cyan-400"></textarea>
-                        <button type="submit"
-                                class="w-full py-4 bg-white text-black rounded-3xl font-semibold hover:bg-cyan-400 transition-colors">
-                            Send Message
-                        </button>
-                    </form>
-                </div>
-                
-                <!-- Links -->
-                <div class="space-y-8">
+                <!-- Contact Form Component -->
+                <form id="contact-form" class="space-y-4" onsubmit="event.preventDefault(); alert('Message sent successfully! (Placeholder functionality)');">
                     <div>
-                        <h3 class="uppercase text-xs tracking-widest mb-4">Connect</h3>
-                        <a href="https://linkedin.com" target="_blank" 
-                           class="flex items-center gap-4 group p-4 rounded-3xl hover:bg-white/5 transition-colors">
-                            <i class="fab fa-linkedin text-3xl text-[#0A66C2]"></i>
-                            <div>
-                                <div class="font-medium group-hover:text-cyan-400">LinkedIn</div>
-                                <div class="text-sm text-zinc-500">Professional Profile</div>
-                            </div>
-                        </a>
+                        <label class="block text-xs uppercase tracking-wider text-gray-400 font-medium mb-1">Your Name</label>
+                        <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="John Doe">
                     </div>
-                    
-                    <div class="pt-8 border-t border-white/10">
-                        <h3 class="uppercase text-xs tracking-widest mb-4">Resume</h3>
-                        <button onclick="downloadResume()" 
-                                class="flex w-full items-center justify-center gap-3 border border-dashed border-white/30 hover:border-cyan-400 rounded-3xl py-8 transition-all group">
-                            <i class="fas fa-file-pdf text-4xl text-red-400 group-hover:scale-110 transition-transform"></i>
-                            <div class="text-left">
-                                <div class="font-semibold">Download Resume</div>
-                                <div class="text-sm text-zinc-500">PDF • Updated 2026</div>
-                            </div>
-                        </button>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-gray-400 font-medium mb-1">Email Address</label>
+                        <input type="email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="john@example.com">
                     </div>
-                </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-gray-400 font-medium mb-1">Message</label>
+                        <textarea rows="4" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="Tell me about your project..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl transition-all shadow-lg shadow-blue-600/10">
+                        Send Encrypted Message
+                    </button>
+                </form>
+
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer -->
-    <footer class="py-12 border-t border-white/10 text-center text-xs text-zinc-500">
-        <div class="max-w-7xl mx-auto px-6">
-            Made with curiosity &amp; Three.js • Deployed on GitHub Pages
-        </div>
-    </footer>
+    </main>
 
-    <!-- Data Files -->
+    <!-- DEPENDENCY LIBRARIES (Three.js and Vanilla Tilt for Parallax Card FX) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+
+    <!-- CORE SITE CORE LOGIC ENGINE -->
     <script>
-        // Config - Edit this object for personalization
-        const config = {
-            name: "Alias",
-            title: "Aspiring AI Engineer & Robotics Hobbyist",
-            linkedin: "https://linkedin.com/in/yourprofile",
-            email: "your@email.com"
+        /************************************************************
+         * 1. GLOBAL PROFILE CONFIGURATION DATA (EDIT THIS REGULARLY)
+         ************************************************************/
+        const SITE_CONFIG = {
+            profile: {
+                alias: "ANVESHAN SPATIAL",
+                name: "Your Name / Alias",
+                role: "AI Engineer & Drone Robotics Developer",
+                tagline: "Building autonomous systems, predictive telemetry platforms, and intelligent neural interfaces. Focused on making technological scaling deeply empathetic and wildly creative.",
+                resumeUrl: "resume.pdf"
+            },
+            projects: [
+                {
+                    title: "Autonomous Drone GUI Engine",
+                    description: "A Python/CustomTkinter control dashboard for monitoring real-time telemetry streaming, tracking geographic anomalies, and mapping custom payloads over high-latency radio links.",
+                    status: "Running",
+                    tags: ["Python", "Computer Vision", "Telemetry"],
+                    link: "#"
+                },
+                {
+                    // If you want to include past work like your CFD visualization project or charging monitors:
+                    title: "Scientific CFD Fluid Simulation Hub",
+                    description: "Built a custom Python GUI application featuring mathematical physics processing engines that calculate and render real-time aerodynamic stress visualizations across 3D surfaces.",
+                    status: "Completed",
+                    tags: ["CustomTkinter", "NumPy", "Fluid Dynamics"],
+                    link: "#"
+                },
+                {
+                    title: "Real-time Telemetry Audio Hardware Pipeline",
+                    description: "An integrated firmware setup mapping ESP32 I2S microphone arrays directly to data parsing applications, handling rapid analog sensor shifts seamlessly.",
+                    status: "Completed",
+                    tags: ["ESP32", "Embedded Systems", "I2S Protocol"],
+                    link: "#"
+                }
+            ],
+            socials: {
+                linkedin: "https://linkedin.com/in/your-profile",
+                github: "https://github.com/your-username"
+            }
         };
 
-        // Sample Projects
-        const projects = [
-            {
-                title: "Autonomous Drone Swarm",
-                desc: "ROS2-based multi-drone coordination system with real-time obstacle avoidance using computer vision.",
-                status: "Running",
-                tech: "ROS2 • OpenCV • PX4",
-                link: "#"
-            },
-            {
-                title: "Vision-Language Robotics",
-                desc: "Robot arm controlled via natural language using multimodal LLMs and reinforcement learning.",
-                status: "Completed",
-                tech: "PyTorch • CLIP • MoveIt",
-                link: "#"
-            },
-            {
-                title: "Satellite Image Analysis",
-                desc: "Deep learning pipeline for land-use classification and change detection.",
-                status: "Completed",
-                tech: "TensorFlow • Sentinel-2",
-                link: "#"
-            }
-        ];
+        /************************************************************
+         * 2. INITIALIZE CONTENT LAYER
+         ************************************************************/
+        function setupContent() {
+            const cfg = SITE_CONFIG;
+            document.getElementById('nav-brand').textContent = cfg.profile.alias;
+            document.getElementById('hero-name').textContent = `Hello, I'm ${cfg.profile.name}`;
+            document.getElementById('hero-role').textContent = cfg.profile.role;
+            document.getElementById('hero-tagline').textContent = cfg.profile.tagline;
+            document.getElementById('resume-btn').setAttribute('href', cfg.profile.resumeUrl);
 
-        // Sample Blogs (add more objects here)
-        const blogs = [
-            {
-                title: "Why Every Roboticist Should Learn Modern LLMs",
-                date: "May 12, 2026",
-                excerpt: "Exploring how large language models are transforming robot programming and human-robot interaction.",
-                readTime: "8 min"
-            },
-            {
-                title: "Building My First Quadcopter from Scratch",
-                date: "April 28, 2026",
-                excerpt: "Lessons learned in embedded systems, PID tuning, and the joy of seeing your code fly.",
-                readTime: "12 min"
-            }
-        ];
-
-        // Render Projects
-        function renderProjects() {
-            const container = document.getElementById('projects-container');
-            container.innerHTML = projects.map(p => `
-                <div class="glass border border-white/10 rounded-3xl p-8 card-tilt group hover:border-cyan-400/40 transition-all">
-                    <div class="flex justify-between mb-6">
-                        <span class="px-4 py-1 text-xs rounded-3xl ${p.status === 'Running' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'}">
-                            ${p.status}
-                        </span>
+            // Populate Projects
+            const projGrid = document.getElementById('projects-grid');
+            projGrid.innerHTML = cfg.projects.map(p => `
+                <div class="glass-card p-6 rounded-2xl border border-white/5 flex flex-col justify-between hover:border-blue-500/30 transition-all shadow-xl" data-tilt data-tilt-max="8" data-tilt-glare data-tilt-max-glare="0.1">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-xs px-2.5 py-1 rounded-full font-display font-medium ${p.status === 'Running' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : 'bg-blue-500/10 text-blue-400 border border-blue-500/20'}">
+                                ${p.status}
+                            </span>
+                            <a href="${p.link}" class="text-gray-400 hover:text-white transition-colors"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                        <h3 class="text-xl font-bold font-display text-white mb-2">${p.title}</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">${p.description}</p>
                     </div>
-                    <h3 class="text-2xl font-semibold mb-3">${p.title}</h3>
-                    <p class="text-zinc-400 mb-6 line-clamp-3">${p.desc}</p>
-                    <div class="text-xs text-cyan-400 mb-6">${p.tech}</div>
-                    <a href="${p.link}" class="inline-flex items-center text-sm group-hover:text-cyan-400 transition-colors">
-                        Explore Project →
-                    </a>
+                    <div class="flex flex-wrap gap-2">
+                        ${p.tags.map(t => `<span class="text-xs font-mono bg-white/5 text-gray-300 px-2 py-1 rounded">${t}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            // Populate Social Links
+            const socialBox = document.getElementById('social-links-container');
+            socialBox.innerHTML = `
+                <a href="${cfg.socials.linkedin}" target="_blank" class="flex items-center gap-4 text-gray-400 hover:text-blue-400 transition-colors group">
+                    <span class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-blue-500/10 border border-white/10 group-hover:border-blue-500/20"><i class="fa-brands fa-linkedin-in"></i></span>
+                    <span class="text-sm font-medium">Connect on LinkedIn</span>
+                </a>
+                <a href="${cfg.socials.github}" target="_blank" class="flex items-center gap-4 text-gray-400 hover:text-white transition-colors group">
+                    <span class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-white/10 border border-white/10"><i class="fa-brands fa-github"></i></span>
+                    <span class="text-sm font-medium">Follow open-source on GitHub</span>
+                </a>
+            `;
+
+            // Activate Parallax Cards via Tilt library
+            VanillaTilt.init(document.querySelectorAll("[data-tilt]"));
+        }
+
+        /************************************************************
+         * 3. FETCH AND PARSE EXTERNAL BLOGS (JSON CONFIG SYSTEM)
+         ************************************************************/
+        async function loadBlogs() {
+            const blogGrid = document.getElementById('blogs-grid');
+            try {
+                // Attempts to pull fresh records via asynchronous fetch. Falls back to static placeholder array if run locally without server.
+                const response = await fetch('blogs.json');
+                const blogs = await response.json();
+                renderBlogs(blogs);
+            } catch (err) {
+                console.log("Custom blogs.json fetch deferred. Rendering standard structure.");
+                const fallbackBlogs = [
+                    { "title": "Optimizing Spatial Mapping In Autonomous Micro UAVs", "date": "May 2026", "excerpt": "Deep dive into resource-constrained vector processing models designed for rapid custom pathing.", "readTime": "6 min read" },
+                    { "title": "Building Responsive UI Architectures for Hardware Controls", "date": "April 2026", "excerpt": "How to decouple continuous hardware streams from multi-threaded visualization layers effortlessly.", "readTime": "4 min read" },
+                    { "title": "Systems with Empathy: Designing High-Utility Computational Assets", "date": "March 2026", "excerpt": "Reflections on bridging the gap between rigorous technical metrics and long-term humane UI impact.", "readTime": "5 min read" }
+                ];
+                renderBlogs(fallbackBlogs);
+            }
+        }
+
+        function renderBlogs(data) {
+            const grid = document.getElementById('blogs-grid');
+            grid.innerHTML = data.map(b => `
+                <div class="glass-card p-6 rounded-2xl flex flex-col justify-between border border-white/5 group hover:border-indigo-500/20 transition-all duration-300">
+                    <div>
+                        <div class="flex justify-between text-xs text-gray-500 mb-3 font-mono">
+                            <span>${b.date}</span>
+                            <span>${b.readTime}</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">${b.title}</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">${b.excerpt}</p>
+                    </div>
+                    <a href="#" class="text-xs text-indigo-400 font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">Read Insights <i class="fa-solid fa-chevron-right text-[10px]"></i></a>
                 </div>
             `).join('');
         }
 
-        // Render Blogs
-        function renderBlogs() {
-            const container = document.getElementById('blogs-container');
-            container.innerHTML = blogs.map(b => `
-                <div class="glass border border-white/10 rounded-3xl p-8 hover:border-white/30 transition-all">
-                    <div class="flex justify-between text-xs text-zinc-500 mb-4">
-                        <span>${b.date}</span>
-                        <span>${b.readTime}</span>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3 leading-tight">${b.title}</h3>
-                    <p class="text-zinc-400 line-clamp-3">${b.excerpt}</p>
-                    <div class="mt-6 text-cyan-400 text-sm inline-flex items-center gap-2">
-                        Read full post 
-                        <span class="text-lg leading-none">→</span>
-                    </div>
-                </div>
-            `).join('');
-        }
+        /************************************************************
+         * 4. ADVANCED THREE.JS ENVIRONMENT SETUP (SPATIAL FLOATING PARTICLES)
+         ************************************************************/
+        let scene, camera, renderer, starField, floatingMesh;
+        const scrollData = { current: 0, target: 0 };
 
-        // Three.js Particle Background
-        let scene, camera, renderer, particles;
-
-        function initThree() {
-            const canvas = document.getElementById('hero-canvas');
-            renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            renderer.setSize(window.innerWidth, window.innerHeight);
+        function init3D() {
+            const container = document.getElementById('canvas-container');
             
+            // Build Context
             scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 30;
-            
-            // Particles
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+
+            // Create Floating Particle Stars Field
+            const particleCount = 1400;
             const geometry = new THREE.BufferGeometry();
-            const vertices = [];
-            const colors = [];
-            
-            for (let i = 0; i < 3000; i++) {
-                const x = (Math.random() - 0.5) * 120;
-                const y = (Math.random() - 0.5) * 120;
-                const z = (Math.random() - 0.5) * 80;
-                vertices.push(x, y, z);
-                
-                const color = new THREE.Color();
-                color.setHSL(0.5 + Math.random() * 0.2, 0.8, 0.7);
-                colors.push(color.r, color.g, color.b);
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+
+            for (let i = 0; i < particleCount * 3; i += 3) {
+                // Wide spatial field distribution
+                positions[i] = (Math.random() - 0.5) * 12;
+                positions[i + 1] = (Math.random() - 0.5) * 12;
+                positions[i + 2] = (Math.random() - 0.5) * 12;
+
+                // Complex subtle color variance (deep royal blues to icy cyans)
+                colors[i] = 0.2 + Math.random() * 0.2;
+                colors[i + 1] = 0.4 + Math.random() * 0.4;
+                colors[i + 2] = 1.0;
             }
-            
-            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-            geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-            
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            // Custom glowing material node points
             const material = new THREE.PointsMaterial({
-                size: 0.15,
+                size: 0.025,
                 vertexColors: true,
                 transparent: true,
-                opacity: 0.6,
+                opacity: 0.8,
                 blending: THREE.AdditiveBlending
             });
+
+            starField = new THREE.Points(geometry, material);
+            scene.add(starField);
+
+            // Add central low-poly abstract architectural geometric cluster
+            const geom = new THREE.IcosahedronGeometry(1.2, 1);
+            const wireMat = new THREE.MeshBasicMaterial({
+                color: 0x4f46e5,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.15
+            });
+            floatingMesh = new THREE.Mesh(geom, wireMat);
+            floatingMesh.position.set(2, 0, -1);
+            scene.add(floatingMesh);
+
+            // Lighting Setup
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+            scene.add(ambientLight);
+
+            // Track System Interaction
+            window.addEventListener('scroll', () => {
+                scrollData.target = window.scrollY / window.innerHeight;
+            });
+
+            window.addEventListener('resize', onWindowResize);
             
-            particles = new THREE.Points(geometry, material);
-            scene.add(particles);
-            
-            // Gentle animation loop
-            function animate() {
-                requestAnimationFrame(animate);
-                
-                particles.rotation.y += 0.0002;
-                particles.rotation.x += 0.0001;
-                
-                renderer.render(scene, camera);
-            }
             animate();
         }
 
-        // Parallax & Tilt Effect
-        function addTiltEffects() {
-            document.querySelectorAll('.card-tilt').forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    const rotX = (y - rect.height / 2) / 15;
-                    const rotY = (rect.width / 2 - x) / 15;
-                    
-                    card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-                });
-            });
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
         }
 
-        // Resume Download (placeholder)
-        function downloadResume() {
-            alert("Resume placeholder. Replace with your actual PDF link in the downloadResume() function.");
-            // Example: window.location.href = "resume.pdf";
+        /************************************************************
+         * 5. ANIMATION TICK LOOP WITH INTERACTIVE SCROLL TRACKING
+         ************************************************************/
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Smooth linear interpolation for scroll dynamics
+            scrollData.current += (scrollData.target - scrollData.current) * 0.08;
+
+            // Idle continuous angular rotational velocity variations
+            starField.rotation.y = Date.now() * 0.00003;
+            starField.rotation.x = Date.now() * 0.00001;
+
+            // Move fields dynamically based on web app scroll trajectory
+            starField.position.z = scrollData.current * 2.5;
+            starField.position.y = -scrollData.current * 0.5;
+
+            floatingMesh.rotation.y += 0.003;
+            floatingMesh.rotation.x += 0.001;
+            
+            // Subtle alignment shifts to track layout orientation changes smoothly
+            if(window.innerWidth < 768) {
+                floatingMesh.position.set(0, -1, -2); // Center behind cards on smaller displays
+            } else {
+                floatingMesh.position.set(2.2, -scrollData.current * 1.2, -1);
+            }
+
+            renderer.render(scene, camera);
         }
 
-        // Contact Form
-        document.getElementById('contact-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert("Thank you! Message received (this is a demo). In production, connect to Formspree or EmailJS.");
+        // Boot-Up Sequences
+        window.addEventListener('DOMContentLoaded', () => {
+            setupContent();
+            loadBlogs();
+            init3D();
         });
-
-        // Tailwind Script
-        function initTailwind() {
-            // Already loaded via CDN
-        }
-
-        // Initialize everything
-        window.onload = function() {
-            initThree();
-            renderProjects();
-            renderBlogs();
-            addTiltEffects();
-            
-            // Resize handler
-            window.addEventListener('resize', () => {
-                if (renderer) {
-                    renderer.setSize(window.innerWidth, window.innerHeight);
-                    camera.aspect = window.innerWidth / window.innerHeight;
-                    camera.updateProjectionMatrix();
-                }
-            });
-            
-            console.log('%cAether Portfolio ready 🚀\nEdit config, projects, and blogs arrays to personalize.', 'color:#22d3ee; font-family:monospace');
-        };
     </script>
 </body>
 </html>
