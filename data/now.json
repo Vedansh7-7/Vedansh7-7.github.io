@@ -1,8 +1,8 @@
 [
   {
     "type": "Reading",
-    "title": "Thinking in Systems",
-    "details": "Donella Meadows"
+    "title": "Focus on What Matters",
+    "details": "by Darius Foroux"
   },
 
   {
@@ -13,8 +13,8 @@
 
   {
     "type": "Building",
-    "title": "CareerAI",
-    "details": "LLM counseling system"
+    "title": "Stock-management AI",
+    "details": "LLM and ML based decision-making system"
   },
 
   {

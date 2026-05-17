@@ -8,7 +8,7 @@
     "description": "Lunar elemental mapping pipelines.",
 
     "links": {
-      "github": "https://github.com/yourusername/chandrayaan",
+      "github": "",
       "demo": "",
       "paper": ""
     }
@@ -16,12 +16,53 @@
 
   {
     "number": "02",
-    "title": "CareerAI — RAG Counseling System",
+    "title": "VecLens",
     "metaTop": "AI/ML",
-    "metaBottom": "FAISS · Qwen2.5 · FastAPI",
-
+    "metaBottom": "RAG · Vector Embeddings · NLP",
+    "description": "AI-focused project for vector-based analysis and intelligent data processing.",
     "links": {
-      "github": "https://github.com/yourusername/careerai"
+      "github": "https://github.com/Vedansh7-7/VecLens",
+      "demo": "",
+      "paper": ""
+    }
+  },
+
+  {
+    "number": "03",
+    "title": "UberEats Delivery Analytics",
+    "metaTop": "Data Analytics",
+    "metaBottom": "Data Engineering · Visualization · Insights",
+    "description": "Data analysis and visualization of UberEats delivery patterns and operational insights.",
+    "links": {
+      "github": "https://github.com/Vedansh7-7/ubereats-delivery-analytics",
+      "demo": "",
+      "paper": ""
+    }
+  },
+
+  {
+    "number": "04",
+    "title": "Spotify Data Analysis",
+    "metaTop": "Data Science",
+    "metaBottom": "Numpy · Pandas · Visualization",
+    "description": "Exploratory analysis of Spotify listening data and music trends.",
+    "links": {
+      "github": "https://github.com/Vedansh7-7/Spotify-Data-Analysis",
+      "demo": "",
+      "paper": ""
+    }
+  },
+
+  {
+    "number": "05",
+    "title": "CubeSat",
+    "metaTop": "Aerospace",
+    "metaBottom": "Satellite Systems · Data Streaming · TKinter",
+    "description": "CubeSat-related development & GUI with live mission analysis tools.",
+    "links": {
+      "github": "https://github.com/Vedansh7-7/CubeSat",
+      "demo": "",
+      "paper": ""
     }
   }
 ]
