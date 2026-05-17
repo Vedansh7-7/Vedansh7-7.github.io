@@ -10,8 +10,31 @@
   --mono:'Space Mono',monospace;
   --sans:-apple-system,'Helvetica Neue',sans-serif;
 }
-html{background:var(--bg);color:var(--fg);cursor:none;overflow:hidden;height:100%}
-body{height:100%;overflow:hidden;font-family:var(--sans)}
+html{
+  background:var(--bg);
+  color:var(--fg);
+  cursor:none;
+  width:100%;
+  min-height:100%;
+  overflow:hidden;
+}
+
+body{
+  width:100%;
+  min-height:100vh;
+  overflow:hidden;
+  font-family:var(--sans);
+}
+
+/* ── CANVAS ── */
+#bg-canvas{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  width:100% !important;
+  height:100% !important;
+  display:block;
+}
 
 /* ── CUSTOM CURSOR ── */
 #cursor{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;mix-blend-mode:difference}
@@ -21,7 +44,7 @@ body.cursor-hover .cursor-dot{width:60px;height:60px;border-radius:50%;backgroun
 body.cursor-hover .cursor-ring{opacity:0}
 
 /* ── CANVAS ── */
-#bg-canvas{position:fixed;inset:0;z-index:0}
+/* #bg-canvas{position:fixed;inset:0;z-index:0} */
 
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;mix-blend-mode:difference}
@@ -119,3 +142,226 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:2rem 3rem;display:fl
 .panel.active > *:nth-child(3){transition-delay:.2s}
 .panel.active > *:nth-child(4){transition-delay:.3s}
 .panel.active > *:nth-child(5){transition-delay:.4s}
+
+/* ──────────────────────────────────────────
+   RESPONSIVE DESIGN
+────────────────────────────────────────── */
+
+
+/* TABLETS */
+@media (max-width: 1024px){
+
+  nav{
+    padding:1.5rem 2rem;
+  }
+
+  #p-hero,
+  #p-about,
+  #p-work,
+  #p-now,
+  #p-blog,
+  #p-contact{
+    padding-left:2rem;
+    padding-right:2rem;
+  }
+
+  .hero-name{
+    font-size:clamp(4rem,12vw,9rem);
+  }
+
+  .about-statement{
+    font-size:clamp(2rem,4vw,4rem);
+  }
+
+  .contact-big{
+    font-size:clamp(3.5rem,10vw,8rem);
+  }
+
+  .now-grid{
+    gap:2rem;
+  }
+
+  .blog-grid{
+    gap:1.5rem;
+  }
+}
+
+
+
+/* MOBILE */
+@media (max-width: 768px){
+
+  html,
+  body{
+    cursor:auto;
+  }
+
+
+  #cursor{
+    display:none;
+  }
+
+
+  nav{
+    padding:1.2rem 1rem;
+    align-items:flex-start;
+  }
+
+  .nav-right{
+    gap:1rem;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+
+  .nav-right a{
+    font-size:.55rem;
+  }
+
+
+  #p-hero,
+  #p-about,
+  #p-work,
+  #p-now,
+  #p-blog,
+  #p-contact{
+    padding-left:1rem;
+    padding-right:1rem;
+  }
+
+
+  .hero-name{
+    font-size:clamp(3rem,16vw,5rem);
+    line-height:.95;
+  }
+
+  .hero-bottom{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:1.5rem;
+  }
+
+  .hero-role{
+    max-width:100%;
+    font-size:.62rem;
+  }
+
+
+  .about-statement{
+    font-size:clamp(1.6rem,7vw,2.8rem);
+    line-height:1.2;
+  }
+
+  .about-tags{
+    gap:.6rem;
+  }
+
+  .about-tag{
+    font-size:.55rem;
+    padding:.35rem .8rem;
+  }
+
+
+  .work-item{
+    grid-template-columns:1fr;
+    gap:.5rem;
+    padding:1rem 0;
+  }
+
+  .wi-num{
+    display:none;
+  }
+
+  .wi-title{
+    font-size:1.3rem;
+  }
+
+  .wi-meta{
+    text-align:left;
+    font-size:.55rem;
+  }
+
+
+  .now-grid{
+    grid-template-columns:1fr;
+    gap:1.5rem;
+  }
+
+  .now-block p{
+    font-size:1.1rem;
+  }
+
+  .now-status{
+    flex-wrap:wrap;
+    gap:1rem;
+  }
+
+
+  .bf-title{
+    font-size:clamp(1.8rem,8vw,3rem);
+  }
+
+  .blog-grid{
+    grid-template-columns:1fr;
+    gap:1.5rem;
+  }
+
+  .bs-title{
+    font-size:1rem;
+  }
+
+
+  .contact-big{
+    font-size:clamp(3rem,16vw,5rem);
+  }
+
+  .contact-bottom{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:1.5rem;
+  }
+
+  .contact-links{
+    flex-wrap:wrap;
+    gap:1rem;
+  }
+
+
+  #progress{
+    right:1rem;
+  }
+
+  #page-counter{
+    left:1rem;
+    bottom:1rem;
+  }
+}
+
+
+
+/* SMALL PHONES */
+@media (max-width: 480px){
+
+  .hero-name{
+    font-size:2.8rem;
+  }
+
+  .about-statement{
+    font-size:1.5rem;
+  }
+
+  .bf-title{
+    font-size:1.8rem;
+  }
+
+  .contact-big{
+    font-size:2.8rem;
+  }
+
+  .nav-right{
+    display:none;
+  }
+
+  #progress{
+    display:none;
+  }
+}

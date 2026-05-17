@@ -1,13 +1,22 @@
+// ─────────────────────────────────────────────
+// PANEL REFERENCES
+// ─────────────────────────────────────────────
 const panels = document.querySelectorAll('.panel');
+
 const dots = document.querySelectorAll('.prog-dot');
-const counter = document.getElementById('page-counter');
+
+const counter =
+    document.getElementById('page-counter');
+
 
 let current = 0;
+
 let isTransitioning = false;
 
 
+
 // ─────────────────────────────────────────────
-// PANEL SWITCH
+// PANEL NAVIGATION
 // ─────────────────────────────────────────────
 function goTo(idx){
 
@@ -18,17 +27,22 @@ function goTo(idx){
         idx >= panels.length
     ) return;
 
+
     isTransitioning = true;
 
+
     const prev = panels[current];
+
     const next = panels[idx];
 
     const dir = idx > current ? 1 : -1;
 
 
-    // OUT
+    // ─────────────────────────────────────────
+    // OUT ANIMATION
+    // ─────────────────────────────────────────
     prev.style.transform =
-        `translateY(${-dir * 100}vh)`;
+        `translateY(${-dir * window.innerHeight}px)`;
 
     prev.style.opacity = '0';
 
@@ -36,6 +50,7 @@ function goTo(idx){
     setTimeout(() => {
 
         prev.classList.add('hidden');
+
         prev.classList.remove('active');
 
         prev.style.transform = '';
@@ -43,13 +58,17 @@ function goTo(idx){
     }, 900);
 
 
-    // IN
+
+    // ─────────────────────────────────────────
+    // IN ANIMATION
+    // ─────────────────────────────────────────
     next.style.transform =
-        `translateY(${dir * 60}vh)`;
+        `translateY(${dir * window.innerHeight * 0.6}px)`;
 
     next.style.opacity = '0';
 
     next.classList.remove('hidden');
+
     next.classList.add('active');
 
 
@@ -64,37 +83,54 @@ function goTo(idx){
                 'translateY(0)';
 
             next.style.opacity = '1';
+
         });
+
     });
+
 
 
     current = idx;
 
 
+    // ─────────────────────────────────────────
+    // DOTS
+    // ─────────────────────────────────────────
     dots.forEach((dot, i) => {
 
         dot.classList.toggle(
             'active',
             i === current
         );
+
     });
 
 
+    // ─────────────────────────────────────────
+    // PAGE COUNTER
+    // ─────────────────────────────────────────
     counter.textContent =
         String(current + 1).padStart(2, '0') +
         ' / ' +
         String(panels.length).padStart(2, '0');
 
 
+
+    // ─────────────────────────────────────────
+    // CLEANUP
+    // ─────────────────────────────────────────
     setTimeout(() => {
 
         isTransitioning = false;
 
         next.style.transition = '';
+
         next.style.transform = '';
+
         next.style.opacity = '';
 
     }, 1000);
+
 }
 
 
@@ -105,7 +141,9 @@ function goTo(idx){
 function initializeNavigation(){
 
 
-    // DOTS
+    // ─────────────────────────────────────────
+    // PROGRESS DOTS
+    // ─────────────────────────────────────────
     dots.forEach(dot => {
 
         dot.addEventListener('click', () => {
@@ -113,10 +151,14 @@ function initializeNavigation(){
             goTo(+dot.dataset.i);
 
         });
+
     });
 
 
+
+    // ─────────────────────────────────────────
     // NAV LINKS
+    // ─────────────────────────────────────────
     document
         .querySelectorAll('[data-goto]')
         .forEach(link => {
@@ -128,10 +170,14 @@ function initializeNavigation(){
                 goTo(+link.dataset.goto);
 
             });
+
         });
 
 
-    // WHEEL
+
+    // ─────────────────────────────────────────
+    // MOUSE WHEEL
+    // ─────────────────────────────────────────
     let wheelAcc = 0;
 
     let wheelTimer;
@@ -147,6 +193,7 @@ function initializeNavigation(){
 
             clearTimeout(wheelTimer);
 
+
             wheelTimer = setTimeout(() => {
 
                 if(Math.abs(wheelAcc) > 30){
@@ -155,6 +202,7 @@ function initializeNavigation(){
                         current +
                         (wheelAcc > 0 ? 1 : -1)
                     );
+
                 }
 
                 wheelAcc = 0;
@@ -166,7 +214,10 @@ function initializeNavigation(){
     );
 
 
-    // KEYS
+
+    // ─────────────────────────────────────────
+    // KEYBOARD
+    // ─────────────────────────────────────────
     window.addEventListener('keydown', e => {
 
         if(
@@ -175,7 +226,9 @@ function initializeNavigation(){
         ){
 
             goTo(current + 1);
+
         }
+
 
         if(
             e.key === 'ArrowUp' ||
@@ -183,11 +236,16 @@ function initializeNavigation(){
         ){
 
             goTo(current - 1);
+
         }
+
     });
 
 
-    // TOUCH
+
+    // ─────────────────────────────────────────
+    // TOUCH SUPPORT
+    // ─────────────────────────────────────────
     let touchY = 0;
 
 
@@ -211,13 +269,27 @@ function initializeNavigation(){
                 touchY -
                 e.changedTouches[0].clientY;
 
+
             if(Math.abs(dy) > 40){
 
                 goTo(
                     current +
                     (dy > 0 ? 1 : -1)
                 );
+
             }
+
         }
     );
+
 }
+
+
+
+// ─────────────────────────────────────────────
+// START NAVIGATION
+// ─────────────────────────────────────────────
+document.addEventListener(
+    'DOMContentLoaded',
+    initializeNavigation
+);
