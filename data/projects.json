@@ -4,13 +4,24 @@
     "title": "Chandrayaan-2 Lunar Mapping",
     "metaTop": "ISRO · VSSC",
     "metaBottom": "XRF · FITS · Python",
-    "description": "Lunar mapping using CLASS payload."
+
+    "description": "Lunar elemental mapping pipelines.",
+
+    "links": {
+      "github": "https://github.com/yourusername/chandrayaan",
+      "demo": "",
+      "paper": ""
+    }
   },
+
   {
     "number": "02",
-    "title": "Uber Eats Analytics Pipeline",
-    "metaTop": "Data Engineering",
-    "metaBottom": "PySpark · Medallion · SQL",
-    "description": "Analytics lakehouse pipelines."
+    "title": "CareerAI — RAG Counseling System",
+    "metaTop": "AI/ML",
+    "metaBottom": "FAISS · Qwen2.5 · FastAPI",
+
+    "links": {
+      "github": "https://github.com/yourusername/careerai"
+    }
   }
 ]

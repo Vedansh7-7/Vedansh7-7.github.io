@@ -282,51 +282,114 @@ async function renderBlogs() {
 // ─────────────────────────────────────────────
 // CURRENTLY / NOW
 // ─────────────────────────────────────────────
-async function renderNow() {
+async function renderProjects() {
 
-    const now =
-        await loadJSON('./data/now.json');
+    const projects =
+        await loadJSON('./data/projects.json');
 
-    if (!now || !Array.isArray(now)) return;
-
-
-    const grid =
-        document.querySelector('.now-grid');
-
-    if (!grid) return;
+    if (!projects) return;
 
 
-    grid.innerHTML = '';
+    const workList =
+        document.querySelector('.work-list');
+
+    if (!workList) return;
 
 
-    now.forEach(item => {
+    workList.innerHTML = '';
 
-        const block =
+
+    projects.forEach((project, index) => {
+
+        const item =
             document.createElement('div');
 
-        block.className = 'now-block';
+        item.className = 'work-item';
 
 
-        block.innerHTML = `
+        // ─────────────────────────────────────
+        // CLICKABLE PROJECTS
+        // ─────────────────────────────────────
+        if (
+            project.links &&
+            (
+                project.links.github ||
+                project.links.demo ||
+                project.links.paper
+            )
+        ) {
 
-            <div class="now-block-title">
-                ${item.type}
-            </div>
+            item.style.cursor = 'pointer';
 
-            <p>
-                ${item.title}
-                <span>— ${item.details}</span>
-            </p>
+            item.dataset.clickable = 'true';
+        }
+
+
+        item.innerHTML = `
+
+            <span class="wi-num">
+                ${project.number || String(index + 1).padStart(2, '0')}
+            </span>
+
+            <span class="wi-title">
+                ${project.title || ''}
+            </span>
+
+            <span class="wi-meta">
+                ${project.metaTop || ''}<br>
+                ${project.metaBottom || ''}
+            </span>
 
         `;
 
 
-        grid.appendChild(block);
+        // ─────────────────────────────────────
+        // SAVE OPTIONAL DATA
+        // ─────────────────────────────────────
+        if (project.description) {
+
+            item.dataset.description =
+                project.description;
+        }
+
+
+        // ─────────────────────────────────────
+        // CLICK HANDLER
+        // Priority:
+        // github > demo > paper
+        // ─────────────────────────────────────
+        item.addEventListener('click', () => {
+
+            if (!project.links) return;
+
+
+            const targetLink =
+
+                project.links.github ||
+
+                project.links.demo ||
+
+                project.links.paper;
+
+
+            if (targetLink) {
+
+                window.open(
+                    targetLink,
+                    '_blank'
+                );
+            }
+
+        });
+
+
+        workList.appendChild(item);
 
     });
 
-}
 
+    attachCursorHoverEvents();
+}
 
 // ─────────────────────────────────────────────
 // CONTACT
