@@ -2,14 +2,18 @@
   {
     "featured": true,
     "tag": "Latest Essay",
-    "title": "Building a 21cm Hydrogen Line Telescope From Scratch"
+    "title": "Building a 21cm Hydrogen Line Telescope From Scratch",
+    "readTime": "8 min read",
+    "content": "<p>The universe is broadcasting on 1420.405752 MHz. It has been doing so for roughly 13 billion years. All you need to hear it is a repurposed satellite dish, a low-noise amplifier, and a weekend you are willing to lose entirely.</p><p>This is the frequency at which neutral hydrogen — the most abundant element in the universe — emits radiation when its electron flips spin. It is called the 21-centimeter line, and it is one of the most consequential signals in radio astronomy.</p><h2>Why hydrogen?</h2><p>Hydrogen accounts for roughly 75% of all ordinary matter in the universe. When a hydrogen atom in space transitions from its high-energy hyperfine state to its low-energy state, it releases a photon at exactly 1420.405752 MHz. The probability of any individual atom doing this at a given moment is extraordinarily low — but space contains an extraordinary number of hydrogen atoms.</p><p>The result is a faint but detectable signal that passes through interstellar dust unimpeded. You can map the spiral arms of the Milky Way from your backyard.</p><h2>The hardware</h2><p>My setup: a 1.2m surplus satellite dish, a 1420 MHz feed horn machined from copper pipe, an RTL-SDR dongle, and an LNA4ALL low-noise amplifier. Total cost: under $200. The dish I found at a local scrapyard. The feed horn I built over two evenings following W1GHZ's online antenna book.</p><p>The critical component is the LNA — low-noise amplifier. You are trying to detect signals measured in fractions of a Kelvin above the noise floor. Every decibel of noise figure matters. I used an LNA4ALL with a noise figure of about 0.6 dB, mounted directly at the feed to minimize coax loss before amplification.</p><h2>First light</h2><p>First detection came at 2:40 AM on a clear Tuesday. The signature Gaussian peak at 1420 MHz, Doppler-shifted by the velocity of hydrogen clouds relative to Earth. I stared at the waterfall display for a long time. That signal left those hydrogen atoms before humans existed.</p><p>The project is ongoing. Next steps: drift scanning to build a rudimentary galactic map, and correlating my observations with the HI4PI all-sky survey.</p>"
   },
   {
     "date": "Data Engineering · Coming Soon",
-    "title": "Medallion Architecture: When and Why It Works"
+    "title": "Medallion Architecture: When and Why It Works",
+    "content": "<p>This essay is in progress. It will cover the medallion (Bronze/Silver/Gold) data lakehouse pattern — when it genuinely solves problems versus when it adds unnecessary complexity to simpler pipelines.</p>"
   },
   {
     "date": "Space Science · Coming Soon",
-    "title": "Parsing the Moon: XRF Spectroscopy with Chandrayaan-2"
+    "title": "Parsing the Moon: XRF Spectroscopy with Chandrayaan-2",
+    "content": "<p>This essay is in progress. It will detail the process of working with CLASS (Chandrayaan-2 Large Area Soft X-ray Spectrometer) FITS data to produce elemental abundance maps of the lunar surface.</p>"
   }
 ]
